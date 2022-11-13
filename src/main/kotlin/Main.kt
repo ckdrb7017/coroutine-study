@@ -1,5 +1,12 @@
-import kotlinx.coroutines.runBlocking
+fun main() {
+    Chapter01_ScopeBuilder()
+}
 
-fun main() = runBlocking {
+fun printTitle(title: String = "") {
+    println(title)
+    println()
+}
 
+fun printDivider() {
+    println("------------------------------------------------------------------------------")
 }
