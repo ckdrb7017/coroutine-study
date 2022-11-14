@@ -1,4 +1,7 @@
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 fun Chapter01_ScopeBuilder() = runBlocking {
 
@@ -21,12 +24,10 @@ fun CoroutineScope.Chapter01_ScopeBuilder_CoroutineContext() {
 * 코루틴 스코프는 CoroutineContext를 갖고 있는데 이 Context는 코루틴을 처리하기 위한 정보들이 들어있다.
 * 코루틴 아이디, 활성상태 등
 * */
-    printTitle("CoroutineContext에 관한 내용")
     println(this)
     println(coroutineContext)
     println(Thread.currentThread().name)
     println("Hello")
-    printDivider()
 }
 
 suspend fun CoroutineScope.Chapter01_ScopeBuilder_delay_sleep() {
@@ -39,7 +40,6 @@ suspend fun CoroutineScope.Chapter01_ScopeBuilder_delay_sleep() {
 * 반면 sleep()은 해당 쓰레드를 블럭시킨다.
 *
 * */
-    printTitle("코루틴 delay, 쓰레드 sleep 관한 내용")
     launch {
         println("launch : ${Thread.currentThread().name}")
         println("World!")

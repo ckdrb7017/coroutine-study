@@ -1,6 +1,9 @@
 package chapter01
 
-import kotlinx.coroutines.*
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 fun Chapter01_Job_Concurrency() = runBlocking {
 //    doOneTwoThree()
@@ -33,7 +36,7 @@ fun Chapter01_Job_Concurrency() = runBlocking {
 //    println(4)
 //}
 
-suspend fun doOneTwoThree2() = coroutineScope {
+private suspend fun doOneTwoThree2() = coroutineScope {
     /*
     * launch는 Job 객체를 반환한다.
     * join은 suspension point를 가지고 있으며 해당 잡이 끝날때 까지
