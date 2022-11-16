@@ -16,10 +16,17 @@ fun Chapter01_Suspend() = runBlocking {
 private suspend fun measureRandomTime() = coroutineScope{
     /**
      * 아래의 수행 결과는 총 2초가 걸린다.
+     *     val elapsedTIme = measureTimeMillis {
+     *         val randomNum1 = getRandom1()
+     *         val randomNum2 = getRandom2()
+     *         println("${randomNum1} + ${randomNum2} = ${randomNum1 + randomNum2}")
+     *     }
+     *     println(elapsedTIme)
+     *
      * 만약 getRandom1()과 getRandom2()가 동시에 수행된다면 1초에 끝나게 된다.
      *
      * async를 사용하는 방법이 있다.
-     * launch를 수행할수도 있으나 결과를 받을 수 있는 것은 async이기 때문에 async가 최적의 조건이다.
+     * launch를 수행 할 수도 있으나 결과를 받을 수 있는 것은 async이기 때문에 async가 최적의 조건이다.
      *
      * 결과가 필요 없다면 launch, 결과값이 필요하다면 async
      *
@@ -27,6 +34,7 @@ private suspend fun measureRandomTime() = coroutineScope{
      *
      * CoroutineStart.LAZY 를 통해 launch, async 를 원하는 시점에 시작할 수 있다.
      */
+
     val elapsedTIme = measureTimeMillis {
         val randomNum1 = async(start = CoroutineStart.LAZY) { getRandom1() }
         val randomNum2 = async(start = CoroutineStart.LAZY) { getRandom2() }
