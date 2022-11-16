@@ -100,7 +100,7 @@ private suspend fun newParentJob() = coroutineScope {
     delay(1000)
 }
 
-suspend fun parentJob() = coroutineScope {
+private suspend fun parentJob() = coroutineScope {
     /*
     * 첫번째 launch 가 아래 두개의 launch의 부모가 된다.
     * 부모한테 join을 걸면 자식 launch 들이 끝날때 까지 기다리게 된다.

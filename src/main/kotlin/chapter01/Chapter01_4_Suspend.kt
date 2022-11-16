@@ -13,7 +13,7 @@ fun Chapter01_Suspend() = runBlocking {
         println("Chapter01_Suspend is Cancelled ${e}")
     }
 }
-suspend fun measureRandomTime() = coroutineScope{
+private suspend fun measureRandomTime() = coroutineScope{
     /**
      * 아래의 수행 결과는 총 2초가 걸린다.
      * 만약 getRandom1()과 getRandom2()가 동시에 수행된다면 1초에 끝나게 된다.
@@ -38,16 +38,16 @@ suspend fun measureRandomTime() = coroutineScope{
     println(elapsedTIme)
 }
 
-suspend fun getRandom1(): Int{
+private suspend fun getRandom1(): Int{
     delay(1000)
     return Random.nextInt(0, 500)
 }
-suspend fun getRandom2(): Int{
+private suspend fun getRandom2(): Int{
     delay(1000)
     return Random.nextInt(0, 500)
 }
 
-suspend fun doSomething() = coroutineScope {
+private suspend fun doSomething() = coroutineScope {
     /*
     * getRandomException2 에서 delay(500)후 Exception이 발생된다.
     * 코루틴에서는 Exception이 발생하면 부모와 다른 자식 코루틴들에게도 영향을 미치게 된다.
@@ -70,7 +70,7 @@ suspend fun doSomething() = coroutineScope {
     }
 }
 
-suspend fun getRandomException1(): Int{
+private suspend fun getRandomException1(): Int{
     try {
         delay(1000)
         return Random.nextInt(0, 500)
@@ -79,7 +79,7 @@ suspend fun getRandomException1(): Int{
     }
 }
 
-suspend fun getRandomException2(): Int{
+private suspend fun getRandomException2(): Int{
     delay(500)
     throw IllegalStateException()
 }

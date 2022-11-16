@@ -171,7 +171,7 @@ private suspend fun doOneTwoThreeNonCancellable() = coroutineScope {
     println(4)
 }
 
-suspend fun doCountTimeOut() = coroutineScope {
+private suspend fun doCountTimeOut() = coroutineScope {
     /*
     * withTimeout을 통해 일정시간이 끝난 후에 코루틴을 종료할 수 있다.
     * withTimeout을 사용하면 try-catch로 에러를 핸들링할수 있지만 매우 불편한 작업이다.
