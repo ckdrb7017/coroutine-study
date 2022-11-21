@@ -36,20 +36,20 @@ fun Chapter02_Flow_Basic() = runBlocking {
     }
 }
 
-fun flowSomething(): Flow<Int> = flow {
+private fun flowSomething(): Flow<Int> = flow {
     repeat(10) {
         emit(Random.nextInt(0, 500))
         delay(100)
     }
 }
 
-suspend fun flowOfBuilder() {
+private suspend fun flowOfBuilder() {
     flowOf(1, 2, 3, 4, 5).collect {
         println(it)
     }
 }
 
-suspend fun asFlowBuilder() {
+private suspend fun asFlowBuilder() {
     listOf(1, 2, 3, 4, 5).asFlow().collect {
         println(it)
     }
