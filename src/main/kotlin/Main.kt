@@ -1,5 +1,4 @@
-import chapter02.Chapter02_Flow_Basic
-import chapter02.Chapter02_Flow_Operation
+import chapter02.Chapter02_Flow_Context
 
 
 fun main() {
@@ -11,5 +10,7 @@ fun main() {
 //    Chapter01_Mutex_Actor()
 
 //    Chapter02_Flow_Basic()
-    Chapter02_Flow_Operation()
+//    Chapter02_Flow_Operation()
+    Chapter02_Flow_Context()
+
 }
