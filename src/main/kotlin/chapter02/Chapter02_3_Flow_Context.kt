@@ -36,7 +36,7 @@ private fun simple() = flow<Int> {
     }
 }
 
-fun simpleWithContext() = flow<Int> {
+private fun simpleWithContext() = flow<Int> {
     /*
     * Flow 내에서는 Context를 바꿀수 없다.
     * Context를 바꾸기 위해선 flowOn을 이용해 Context를 바꿀 수 있다.

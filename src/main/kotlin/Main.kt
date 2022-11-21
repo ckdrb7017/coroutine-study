@@ -1,4 +1,4 @@
-import chapter02.Chapter02_Flow_Context
+import chapter02.Chapter02_Flow_Buffer
 
 
 fun main() {
@@ -11,6 +11,6 @@ fun main() {
 
 //    Chapter02_Flow_Basic()
 //    Chapter02_Flow_Operation()
-    Chapter02_Flow_Context()
-
+//    Chapter02_Flow_Context()
+    Chapter02_Flow_Buffer()
 }
