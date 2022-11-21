@@ -1,12 +1,24 @@
 package chapter01
 
 import kotlinx.coroutines.*
-import java.util.concurrent.atomic.AtomicInteger
-import kotlin.coroutines.EmptyCoroutineContext
+import kotlinx.coroutines.channels.actor
+import kotlinx.coroutines.sync.Mutex
 import kotlin.system.measureTimeMillis
 
 fun Chapter01_Mutex_Actor() = runBlocking {
-    testMassiveRun()
+    //testMassiveRun()
+
+    val counterActor = counterActor()
+
+    withContext(Dispatchers.Default) {
+        massiveRun {
+            counterActor.send(AddCounter)
+        }
+    }
+    val response = CompletableDeferred<Int>()
+    counterActor.send(GetCounter(response))
+    println("result : ${response.await()}")
+    counterActor.close()
 }
 
 var count = 0
@@ -34,7 +46,7 @@ private suspend fun testMassiveRun() = runBlocking {
     println("count = ${count}")
 }
 
-suspend fun massiveRun(action: suspend () -> Unit) {
+private suspend fun massiveRun(action: suspend () -> Unit) {
     /*
     * 100개의 launch에서 각 1000번을 실행하여 count를 올린다.
     * 이때 공유자원 문제가 생길 수 있다.
@@ -56,6 +68,12 @@ suspend fun massiveRun(action: suspend () -> Unit) {
             repeat(n) {
                 launch {
                     repeat(k) {
+                        /*
+                        * withLock 안에 실행할 action을 넣으면 임계구역 안에서 작동하도록 동작
+                        * */
+//                        mutex.withLock {
+//                            action()
+//                        }
                         action()
                     }
                 }
@@ -64,4 +82,34 @@ suspend fun massiveRun(action: suspend () -> Unit) {
     }
 
     println("${elapsed} ms동안 ${n * k}개의 액션을 수행했습니다.")
+}
+
+/*
+* 임계구역을 설정하기 위한 객체
+*
+* */
+val mutex = Mutex()
+
+/*
+* 액터 : 액터가 독점적으로 자료를 가지며 그 자료를 다른 코루틴과 공유하지 않고 액터를 통해서만 접근하게 한다.
+* 즉 Actor가 데이터를 관리하고 Channel을 통해 데이터 변경이 일어나게 되는 구조이다.
+* */
+sealed class CounterMsg
+object AddCounter : CounterMsg()
+class GetCounter(val response: CompletableDeferred<Int>) : CounterMsg()
+
+@OptIn(ObsoleteCoroutinesApi::class)
+fun CoroutineScope.counterActor() = actor<CounterMsg> {
+    var counter = 0
+    for (msg in channel) {
+        when (msg) {
+            is AddCounter -> {
+                counter++
+            }
+
+            is GetCounter -> {
+                msg.response.complete(counter)
+            }
+        }
+    }
 }
