@@ -1,4 +1,7 @@
-import chapter02.Chapter02_Flow_Buffer
+import chapter02.Chapter02_Flow_Completion
+import chapter02.Chapter02_Flow_Exception
+import chapter02.Chapter02_Flow_Flattening
+import chapter02.Chapter02_Flow_Launching
 
 
 fun main() {
@@ -12,5 +15,10 @@ fun main() {
 //    Chapter02_Flow_Basic()
 //    Chapter02_Flow_Operation()
 //    Chapter02_Flow_Context()
-    Chapter02_Flow_Buffer()
+//    Chapter02_Flow_Buffer()
+//    Chapter02_Flow_Combine()
+//    Chapter02_Flow_Flattening()
+//    Chapter02_Flow_Exception()
+//    Chapter02_Flow_Completion()
+    Chapter02_Flow_Launching()
 }
